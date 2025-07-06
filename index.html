@@ -1,1 +1,139 @@
-<!-- HTML content สุดท้ายของแจ้งซ่อมขั้นเทพจะวางที่นี่ (ตัดย่อเพื่อความสั้น) -->
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>แจ้งซ่อมหอพัก | สกุลทอง</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @font-face {
+      font-family: 'FC Minimal';
+      src: url('FC-Minimal-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    body {
+      font-family: 'FC Minimal', sans-serif;
+      background: #f1f1f1;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+      max-width: 520px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      color: #444;
+    }
+    input[type=text],
+    input[type=tel],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    input[type=file] {
+      margin-top: 0.5rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #6fb3b8;
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .success {
+      color: #2e7d32;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    #preview {
+      margin-top: 1rem;
+      max-width: 100%;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>แจ้งซ่อมหอพัก</h1>
+    <form id="repair-form">
+      <label for="name">ชื่อ-นามสกุล</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">เบอร์โทร</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="room">ห้องพัก</label>
+      <input type="text" id="room" name="room" required>
+
+      <label for="issue">ประเภทปัญหา</label>
+      <select id="issue" name="issue" required>
+        <option value="">-- เลือก --</option>
+        <option value="ไฟฟ้า">ไฟฟ้า</option>
+        <option value="น้ำ">น้ำ</option>
+        <option value="อินเทอร์เน็ต">อินเทอร์เน็ต</option>
+        <option value="ประตู/หน้าต่าง">ประตู/หน้าต่าง</option>
+        <option value="เครื่องใช้ไฟฟ้า">เครื่องใช้ไฟฟ้า</option>
+        <option value="อื่น ๆ">อื่น ๆ</option>
+      </select>
+
+      <label for="details">รายละเอียดเพิ่มเติม</label>
+      <textarea id="details" name="details" rows="3"></textarea>
+
+      <label for="image">แนบรูปภาพ</label>
+      <input type="file" id="image" name="image" accept="image/*">
+      <img id="preview" style="display:none;"/>
+
+      <button type="submit">ส่งแจ้งซ่อม</button>
+      <div class="success" id="success-msg"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('image').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const img = document.getElementById('preview');
+          img.src = evt.target.result;
+          img.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    const form = document.getElementById('repair-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      document.getElementById('success-msg').innerText = '✅ แจ้งซ่อมเรียบร้อย (จำลองการส่ง)';
+      form.reset();
+      document.getElementById('preview').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
